@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block start %}
+
+<div class="bg-light">
+    <div class="container text-center py-5">
+        <h1 class="fw-bold fs-1">Best Consultancies in Nepal</h1>
+        <p class="text-secondary">Find the best consultancy in Nepal for your abroad study</p>
+
+        <!-- Country Flags Section -->
+        <div class="flags my-3">
+            <img src="https://flagcdn.com/w40/us.png" alt="USA" class="me-2">
+            <img src="https://flagcdn.com/w40/au.png" alt="Australia" class="me-2">
+            <img src="https://flagcdn.com/w40/gb.png" alt="UK" class="me-2">
+            <img src="https://flagcdn.com/w40/ca.png" alt="Canada" class="me-2">
+            <img src="https://flagcdn.com/w40/jp.png" alt="Japan" class="me-2">
+            <img src="https://flagcdn.com/w40/kr.png" alt="South Korea" class="me-2">
+        </div>
+
+        <!-- Form Section -->
+        <form method="get" action="{% url 'consultancies' %}" class="mt-4">
+            <div class="row justify-content-center">
+                <!-- Country Selection -->
+                <div class="col-md-4 mb-3">
+                    <label for="country" class="form-label">I want to go to</label>
+                    <select class="form-select" id="country" name="country" required>
+                        <option value="" selected>Select a country</option>
+                        <option value="USA">USA</option>
+                        <option value="Australia">Australia</option>
+                        <option value="UK">UK</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Japan">Japan</option>
+                        <option value="South Korea">South Korea</option>
+                    </select>
+                </div>
+
+                <!-- City Selection -->
+                <div class="col-md-4 mb-3">
+                    <label for="city" class="form-label">I live in</label>
+                    <select class="form-select" id="city" name="city" required>
+                        <option value="" selected>Select a city</option>
+                        <option value="Kathmandu">Kathmandu</option>
+                        <option value="Pokhara">Pokhara</option>
+                        <option value="Biratnagar">Biratnagar</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-3">
+                <button type="submit" class="btn btn-outline-dark px-4">
+                    Find consultancies →
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="container mt-5">
+    <!-- Section Title -->
+    <h1 class="text-center mb-4">Consultancies in <span class="text-primary">Kathmandu</span></h1>
+
+    <!-- Tab Navigation Buttons -->
+    <ul class="nav nav-tabs justify-content-center">
+        {% for country in consultancies_data.keys %}
+        <li class="nav-item">
+            <a class="nav-link {% if forloop.first %}active{% endif %} text-dark" data-bs-toggle="tab"
+                href="#{{ country|lower }}" style="font-weight: bold;">
+                {{ country }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content mt-4 text-center">
+        {% for country, consultancies in consultancies_data.items %}
+        <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="{{ country|lower }}"
+            role="tabpanel">
+            <div class="container text-center">
+                <div class="row row-cols-2">
+                    <div class="col">Column</div>
+                    <div class="col">Column</div>
+                    <div class="col">Column</div>
+                    <div class="col">Column</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}
